@@ -5,7 +5,7 @@ const db = require('../db')
 
 module.exports = {
     get:(req,res)=>{
-        let sql = "SELECT * from cart where UserID = ?"
+        let sql = "SELECT * from cart, flower where UserID = ? and cart.FlowerID = flower.FlowerID"
         db.query(sql,[req.params.UserID],(err,reqponse)=>{
             if(err){
                 throw err                

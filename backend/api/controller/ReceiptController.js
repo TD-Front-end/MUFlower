@@ -31,7 +31,7 @@ module.exports = {
             }  
             console.log("result ====>" + result); 
             //console.log("fields ====>" + fields);     
-            res.json({message: 'Insert success and id = ' + result.insertId})       
+            res.json({message: 'Insert success and id = ' + result.insertId, ReceiptID:result.insertId});       
         })
     },
     insertDetail:(req,res)=>{
@@ -54,7 +54,7 @@ module.exports = {
         })
     },
     getReceiptDetaildetail:(req,res)=>{
-        let sql ='SELECT * from receiptdetail where ReceiptID =?'
+        let sql ='SELECT * from receiptdetail, flower where ReceiptID =? and receiptdetail.FlowerID = flower.FlowerID'
         db.query(sql,[req.params.ReceiptID],(err,reqponse)=>{
             if(err){
                 throw err                

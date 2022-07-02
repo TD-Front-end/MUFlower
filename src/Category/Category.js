@@ -49,7 +49,7 @@ class Category extends React.Component {
                     <div className="col-xs-12">
                         <AddNewCategory />
                     </div>
-                </div><br /><div className="table-responsive-md">
+                </div><br /><div className="table-responsive-md" style={{'box-shadow': '0px 10px 10px rgb(0 0 0 / 15%)', 'border-radius': '15px', 'padding': '40px 40px 40px 40px'}}>
                     <table className="table table-striped">
                         <thead>
                             <tr>

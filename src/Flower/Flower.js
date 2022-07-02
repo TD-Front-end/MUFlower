@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useReducer} from 'react'
+import React, { useEffect, useReducer } from 'react'
 import logger from 'use-reducer-logger';
 import AddNewFlower from './AddNewFlower';
 import EditFlower from './EditFlower';
@@ -18,10 +18,20 @@ const reducer = (state, action) => {
 };
 
 function Flower() {
+    // const navigate = useNavigate();
+    // const { search } = useLocation();
+    // const redirectInUrl = new URLSearchParams(search).get('redirect');
+    // const redirect = redirectInUrl ? redirectInUrl : '/';
+    //
     const [{ flowers }, dispatch] = useReducer(logger(reducer), {
         flowers: [],
     });
     //
+    // let Logout = () => {
+
+    //     localStorage.removeItem('accessToken')
+    //     navigate(redirect || '/login');
+    // }
     // const [flowers, setFlowers] = userState([]);
     useEffect(() => {
         const fetchData = async () => {
@@ -36,21 +46,22 @@ function Flower() {
         };
         fetchData();
     }, []);
-    const deleteFlower= (id, name) =>{
+    const deleteFlower = (id, name) => {
         const deleteById = async (flowerID) => {
             try {
-                await axios.delete("http://localhost:5000/flowers/"+flowerID)
+                await axios.delete("http://localhost:5000/flowers/" + flowerID)
             } catch (error) {
                 console.log(error);
             }
         }
-        if (window.confirm("Bạn có muốn xóa hoa: "+ name)) {
+        if (window.confirm("Bạn có muốn xóa hoa: " + name)) {
             deleteById(id)
             window.location.reload(false)
         };
     }
     return (
         <React.Fragment>
+             
             <div className="alert alert-info mt-3">
                 <strong>Danh sách loại hoa</strong>
             </div>
@@ -59,7 +70,7 @@ function Flower() {
                     <AddNewFlower />
                 </div>
             </div><br />
-            <div className="table-responsive-md">
+            <div className="table-responsive-md" style={{ 'box-shadow': '0px 10px 10px rgb(0 0 0 / 15%)', 'border-radius': '15px', 'padding': '40px 40px 40px 40px' }}>
                 <table className="table table-striped">
                     <thead>
                         <tr>
@@ -82,14 +93,14 @@ function Flower() {
                                     <td>{flower.Color}</td>
                                     <td>{flower.Unit}</td>
                                     <td>{flower.Price}</td>
-                                    <td><img height='130'  src={flower.imgeFlower} className="card-img-top" alt={flower.FlowerName} /></td>
+                                    <td><img height='130' src={flower.imgeFlower} className="card-img-top" alt={flower.FlowerName} /></td>
                                     <td>{flower.CategoryName}</td>
                                     <td>{flower.SupplierName}</td>
 
                                     <td>
-                                        <Link to={"/FlowerDetail/" + flower.FlowerID}  className="btn btn-primary"><i className="far fa-eye"></i></Link>
-                                        <EditFlower flowerId={flower.FlowerID}/>
-                                        <button type="button" className="btn btn-danger" onClick={()=>deleteFlower(flower.FlowerID, flower.FlowerName)}><i className="far fa-trash-alt"></i></button>
+                                        <Link to={"/FlowerDetail/" + flower.FlowerID} className="btn btn-primary"><i className="far fa-eye"></i></Link>
+                                        <EditFlower flowerId={flower.FlowerID} />
+                                        <button type="button" className="btn btn-danger" onClick={() => deleteFlower(flower.FlowerID, flower.FlowerName)}><i className="far fa-trash-alt"></i></button>
                                     </td>
                                 </tr>
 

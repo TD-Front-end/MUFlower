@@ -1,9 +1,16 @@
 import React, { useState } from 'react'
 import './FlowerDetail.css';
-import { useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const FlowerDetail = () => {
+    const navigate = useNavigate();
+    const { search } = useLocation();
+    const redirectInUrl = new URLSearchParams(search).get('redirect');
+    const redirect = redirectInUrl ? redirectInUrl : '/';
+    //
     const [item, setItem] = useState({});
     const id = useParams();
     const getFlower = async () => {
@@ -16,18 +23,26 @@ const FlowerDetail = () => {
             console.log(error);
         }
     }
+    const notify = () => {
+        toast('Add to cart success!');
+    }
     const addToCart = ()=>{
         try {
             const cart = {
-                FlowerID: item.FlowerID,
+                FlowerID: item.FlowerID, 
                 UserID: 1
+                
             }
             axios.post(`http://localhost:5000/cart`, cart)
             .then(res => {
                 console.log(res);
                 console.log(res.data);
+                notify();
             })
+            window.alert('Thêm vào giỏ hàng thành công');
+            navigate(redirect || '/');
         } catch (error) {
+            toast.error('You must Login');
             console.log(error);
         }
     }
@@ -47,7 +62,7 @@ const FlowerDetail = () => {
                             <h2 className="mt-5">
                                 {new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'VND' }).format(item.Price)}
                             </h2>
-                            <button className="btn btn-success btn-rounded mr-1" data-toggle="tooltip" title="" data-original-title="Add to cart" onClick={addToCart}>
+                            <button className="btn btn-success btn-rounded mr-1" data-toggle="tooltip" title="" data-original-title="Add to cart" onClick={addToCart} >
                                 Thêm vào giỏ hàng
                             </button>
                         </div>

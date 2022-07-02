@@ -7,9 +7,12 @@ module.exports = function(app){
     var cartCtrl = require('./controller/CartController');
     var userCtrl = require('./controller/UserController');
 
+
+    app.route('/register').post(userCtrl.insert);
+    app.route('/login').post(userCtrl.login);
+
     //CRUD User
     app.route('/users').get(userCtrl.get)
-    .post(userCtrl.insert);
     app.route('/users/:UserID')
     .get(userCtrl.detail)
     .put(userCtrl.update)

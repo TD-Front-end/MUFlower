@@ -53,5 +53,16 @@ module.exports = {
             }
             res.json({message:'Delete success!'})
         })
+    },
+    login: (req,res)=>{
+        let sql ='SELECT * from user where Email = ? AND Password = ?'
+        db.query(sql,[req.body.Email, req.body.Password],(err,reqponse)=>{
+            if(err){
+                throw err                
+            }
+            res.json({message:'Login success!'})
+        })
     }
+
+   
 }

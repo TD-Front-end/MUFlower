@@ -2,6 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const Header = () => {
+    const signoutHandler = () => {
+        localStorage.removeItem('userInfo');
+        window.location.href = '/login';
+    };
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary" aria-label="Ninth navbar example">
             <div className="container-xl">
@@ -34,10 +38,29 @@ const Header = () => {
                             <a className="nav-link active" href="/#" tabIndex="-1" aria-disabled="true">Liên hệ</a>
                         </li>
                     </ul>
-                    <a href="/#" className="btn btn-success"><i className="fas fa-shopping-cart"></i></a>
-                </div>
+                    {/* <div>
+                        <Link to="/login" style={{color: '#ffff',
+                        'text-decoration': 'auto',
+                        'padding-left': '15px',
+                        'margin-right': '10px'}}>
+                        Login In
+                    </Link>
+
+
+                    <Link
+                        to="#signout" onClick={signoutHandler} style={{color: '#ffff',
+                        'text-decoration': 'auto',
+                        'padding-left': '15px',
+                        'margin-right': '10px'}}>
+                        LogOut
+                    </Link>
+                </div> */}
+
+
+                <Link to={'/Cart'} className="btn btn-success"><i className="fas fa-shopping-cart"></i></Link>
             </div>
-        </nav>
+        </div>
+        </nav >
     )
 }
 
